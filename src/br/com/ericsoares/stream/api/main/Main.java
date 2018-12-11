@@ -14,15 +14,26 @@ public class Main {
 		empregados.add(new Empregado(2, "Fulano", 3000, "Contabeis"));
 		empregados.add(new Empregado(3, "Tadeu", 6000, "Analista"));
 		
-		for(Empregado emp : empregados) {
-			System.out.println(emp.getNome());
-		}
+		// SEM UTILIZAR STREAM API
+//		for(Empregado emp : empregados) {
+//			System.out.println(emp.getNome());
+//		}
 		
-		double salarioTotal = 0;
-		for(Empregado emp : empregados) {
-			salarioTotal = salarioTotal + emp.getSalario();
-		}
-		System.out.println("O salario total é R$ " + salarioTotal);
+		// UTILIZANDO STREAM API
+		empregados.stream().forEach(emp -> {
+			System.out.println(emp.getNome());
+		});
+		
+		
+		// SEM UTILIZAR STREAM API
+//		double salarioTotal = 0;
+//		for(Empregado emp : empregados) {
+//			salarioTotal = salarioTotal + emp.getSalario();
+//		}
+		
+		// UTILIZANDO STREAM API
+		double salarioTotal = empregados.stream().mapToDouble(emp -> emp.getSalario()).sum();
+		System.out.print("O salario total é R$" + salarioTotal);
 	}
 
 }
