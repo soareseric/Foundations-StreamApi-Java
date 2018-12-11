@@ -2,6 +2,8 @@ package br.com.ericsoares.stream.api.main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import br.com.ericsoares.stream.api.models.Empregado;
@@ -16,9 +18,19 @@ public class Main {
 		empregados.add(new Empregado(3, "Tadeu", 6000, "Analista"));
 
 		System.out.println("** FUNCIONÁROS QUE COMEÇAM COM J **");
+		//STREAM NÃO PODEM SER REAPROVEITADOS
+		//STREAM PODEM SOFRER AÇÕES DE TERMINAÇÃO
+		
 		Stream<Empregado> streamEmpregados = empregados.stream();
 		Stream<Empregado> empregadosComcecamComJ = streamEmpregados.filter(emp -> emp.getNome().startsWith("J"));
-		empregadosComcecamComJ.forEach((emp) -> System.out.println(emp.getNome()));
+		List<Empregado> empregadosComJ = empregadosComcecamComJ.collect(Collectors.toList());			
+		empregadosComJ.stream().forEach((emp) -> System.out.println(emp.getNome()));
+		
+		OptionalDouble menorSalario = empregadosComJ.stream().mapToDouble((emp) -> emp.getSalario()).min();
+		if (menorSalario.isPresent()) {
+			System.out.println("O menor salario é R$ " + menorSalario.getAsDouble());
+		}
+		
 		
 	}
 }
