@@ -2,6 +2,9 @@ package br.com.ericsoares.stream.api.main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import br.com.ericsoares.stream.api.impl.Mensageiro;
 import br.com.ericsoares.stream.api.models.Empregado;
@@ -39,5 +42,31 @@ public class Main {
 		Mensageiro mensageiro = (mensagem) -> System.out.println("Mensagem da expressao lambda: " + mensagem);
 		mensageiro.enviarMensagem("Hello Lambda");
 		
+		System.out.println("******************** INTERFACES FUNCIONAIS LAMBDA *********************");
+		System.out.println();
+		
+		// Consumer
+		// ENTRA UM PARAMETRO E NAO RETORNA NADA!
+		System.out.println("Execução do Consumer: ");
+		Consumer<Empregado> consumer = (emp) -> System.out.println("O nome do empregado é " + emp.getNome());
+		consumer.accept(new Empregado(1, "Eric", 30000, "Analista de sistemas"));
+		System.out.println();
+		
+		// Function
+		// 
+		// RESTRIÇÕES: SOMENTE É COMPATIVEL COM REFERENCE TYPES!
+		System.out.println("Execução da Function: ");
+		Function<Empregado, Double> function = (emp) -> emp.getSalario() * 10;
+		double novoSalario = function.apply(new Empregado(1, "Eric", 40000, "Analista de sistemas"));
+		System.out.printf("O novo salario do empregado é R$ %.2f", novoSalario);
+		System.out.println();
+		System.out.println();
+		
+		// BinaryOperator
+		//
+		System.out.println("Execução do BinaryOperator: ");
+		BinaryOperator<Empregado> binaryOperator = (emp1, emp2) -> new Empregado(2, emp1.getNome() + emp2.getNome(), emp1.getSalario() + emp2.getSalario(), emp1.getDepartamento() + emp2.getDepartamento());
+		Empregado novoEmpregado = binaryOperator.apply(new Empregado(10, "Eric", 10000, "Analista de "), new Empregado(11, " Soares", 20000, "Sistemas"));
+		System.out.printf("O novo empregadado se chama %s e seu salario é R$ %.2f e ele é %s", novoEmpregado.getNome(), novoEmpregado.getSalario(), novoEmpregado.getDepartamento());
 	}
 }
