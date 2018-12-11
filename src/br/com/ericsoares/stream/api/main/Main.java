@@ -20,15 +20,22 @@ public class Main {
 		System.out.println("** FUNCIONÁROS QUE COMEÇAM COM J **");
 		//STREAM NÃO PODEM SER REAPROVEITADOS
 		//STREAM PODEM SOFRER AÇÕES DE TERMINAÇÃO
-		List<Empregado> empregadosComJ = empregados.stream()
-				.filter((emp) -> emp.getNome().startsWith("J"))
-				.collect(Collectors.toList());
+		
+		Stream<Empregado> stream = empregados.stream().filter(emp -> {
+			System.out.println("invocando o método filter");
+			return emp.getNome().startsWith("J");
+		});
+		System.out.println("A Stream API é lazy loading! Comprovado com esse sysout. Que foi executado primeiro que o sysout do filter");
+		List<Empregado> empregadosComJ = stream.collect(Collectors.toList());
 		
 		empregadosComJ.stream().forEach((emp) -> System.out.println(emp.getNome()));
 		OptionalDouble menorSalario = empregadosComJ.stream().mapToDouble((emp) -> emp.getSalario()).min();
 		if (menorSalario.isPresent()) {
 			System.out.println("O menor salario é R$ " + menorSalario.getAsDouble());
 		}
+		
+		
+		
 		
 		
 	}
