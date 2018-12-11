@@ -45,7 +45,9 @@ public class Main {
 		System.out.println("Folha salarial: R$ " + sumario.getSum());
 		
 		List<String> nomesEmpregados = empregados.stream().map(emp -> emp.getNome()).collect(Collectors.toList());
-		nomesEmpregados.forEach(System.out::println); //reference method
+		nomesEmpregados.forEach(System.out::println);		
 		
+		String nomesSeparadosPorVirgula = empregados.stream().map(emp -> emp.getNome()).reduce("Nomes dos empregados: ", (n1, n2) -> n1 + "," + n2);
+		System.out.println(nomesSeparadosPorVirgula);
 	}
 }
