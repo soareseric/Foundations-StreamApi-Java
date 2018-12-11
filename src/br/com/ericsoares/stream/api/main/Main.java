@@ -38,11 +38,14 @@ public class Main {
 		
 		DoubleSummaryStatistics sumario = empregados.stream().collect(Collectors.summarizingDouble(Empregado::getSalario)); // Reference method, pode ser usado no lugar de expressoes lambdas
 		System.out.println("Estatisticas do salário: ");
-		System.out.println("Maior salário: " + sumario.getMax());
-		System.out.println("Menor salário: " + sumario.getMin());
-		System.out.printf("Média salarial: %.1f", sumario.getAverage());
+		System.out.println("Maior salário: R$ " + sumario.getMax());
+		System.out.println("Menor salário: R$ " + sumario.getMin());
+		System.out.printf("Média salarial: R$ %.1f ", sumario.getAverage());
 		System.out.println();
-		System.out.println("Folha salarial: " + sumario.getSum());
-
+		System.out.println("Folha salarial: R$ " + sumario.getSum());
+		
+		List<String> nomesEmpregados = empregados.stream().map(emp -> emp.getNome()).collect(Collectors.toList());
+		nomesEmpregados.forEach(System.out::println); //reference method
+		
 	}
 }
