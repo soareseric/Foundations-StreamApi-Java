@@ -20,12 +20,11 @@ public class Main {
 		System.out.println("** FUNCIONÁROS QUE COMEÇAM COM J **");
 		//STREAM NÃO PODEM SER REAPROVEITADOS
 		//STREAM PODEM SOFRER AÇÕES DE TERMINAÇÃO
+		List<Empregado> empregadosComJ = empregados.stream()
+				.filter((emp) -> emp.getNome().startsWith("J"))
+				.collect(Collectors.toList());
 		
-		Stream<Empregado> streamEmpregados = empregados.stream();
-		Stream<Empregado> empregadosComcecamComJ = streamEmpregados.filter(emp -> emp.getNome().startsWith("J"));
-		List<Empregado> empregadosComJ = empregadosComcecamComJ.collect(Collectors.toList());			
 		empregadosComJ.stream().forEach((emp) -> System.out.println(emp.getNome()));
-		
 		OptionalDouble menorSalario = empregadosComJ.stream().mapToDouble((emp) -> emp.getSalario()).min();
 		if (menorSalario.isPresent()) {
 			System.out.println("O menor salario é R$ " + menorSalario.getAsDouble());
