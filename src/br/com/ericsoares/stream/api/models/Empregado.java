@@ -2,10 +2,20 @@ package br.com.ericsoares.stream.api.models;
 
 public class Empregado {
 
-	private Long id;
-	private String name;
+	private long id;
+	private String nome;
 	private double salario;
 	private String departamento;
+
+	
+	public Empregado(long id, String nome, double salario, String departamento) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.salario = salario;
+		this.departamento = departamento;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -15,12 +25,12 @@ public class Empregado {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNoame(String nome) {
+		this.nome = nome;
 	}
 
 	public double getSalario() {
